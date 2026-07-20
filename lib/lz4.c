@@ -270,6 +270,35 @@ typedef enum {
 } limitedOutput_directive;
 
 
+/* Marshall Group patch */
+static void* my_memcpy(void *dst, const void *src, unsigned long num)
+{
+    for(unsigned long i=0; i<num; i++){
+        ((char*)dst)[i]=((char*)src)[i];
+    }
+    return dst;
+}
+
+static void* my_memmove(void *dst, const void *src, unsigned long num)
+{
+    for(unsigned long i=num; i>0; i--){
+        ((char*)dst)[i-1]=((char*)src)[i-1];
+    }
+    return dst;
+}
+
+static void* my_memset(void *ptr, int value, unsigned long num)
+{
+    for(unsigned long i=0; i<num; i++){
+        ((char*)ptr)[i]=value;
+    }
+    return ptr;
+}
+
+#define memcpy(A, B, C) my_memcpy(A, B, C)
+#define memmove(A, B, C) my_memmove(A, B, C)
+#define memset(A, B, C) my_memset(A, B, C)
+
 /*-************************************
 *  Reading and writing into memory
 **************************************/
