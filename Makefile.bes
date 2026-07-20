@@ -1,0 +1,23 @@
+#
+# Copyright (C) 2026, Marshall Group AB. All rights reserved.
+#
+# This software and the information contained herein are protected under relevant
+# intellectual property law. This software and the information contained herein are
+# confidential and proprietary. Any reproduction, modification, use, or disclosure
+# of this software and the information contained herein, in whole or in part, without
+# the written permission of Marshall Group AB, is strictly prohibited.
+#
+
+# Get current directory
+cur_dir := $(dir $(lastword $(MAKEFILE_LIST)))
+
+obj-y += lib/lz4.c
+
+# Convert .c files to .o files
+obj-y := $(obj-y:.c=.o)
+
+# Include paths
+subdir-ccflags-y += -I$(cur_dir)lib
+
+# Override LZ4_MEMORY_USAGE from Kconfig (avoid patching the vendor header)
+subdir-ccflags-y += -DLZ4_MEMORY_USAGE=CONFIG_MSDK_LZ4_MEMORY_USAGE

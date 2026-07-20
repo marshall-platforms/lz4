@@ -1,0 +1,28 @@
+#
+# Copyright (C) 2026, Marshall Group AB. All rights reserved.
+#
+# This software and the information contained herein are protected under relevant
+# intellectual property law. This software and the information contained herein are
+# confidential and proprietary. Any reproduction, modification, use, or disclosure
+# of this software and the information contained herein, in whole or in part, without
+# the written permission of Marshall Group AB, is strictly prohibited.
+#
+
+config MSDK_LZ4_COMPRESSION_LIBRARY
+    bool "LZ4 compression library"
+    default n
+    help
+        Enable LZ4 compression algorithm library
+
+if MSDK_LZ4_COMPRESSION_LIBRARY
+
+config MSDK_LZ4_MEMORY_USAGE
+    int "LZ4 memory usage"
+    range 1 31
+    default 7
+    help
+        Set memory usage.
+        Increasing memory usage improves compression ratio.
+        Reduced memory usage may improve speed.
+
+endif # MSDK_LZ4_COMPRESSION_LIBRARY
